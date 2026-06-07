@@ -78,3 +78,38 @@ Bot 會自動回覆確認訊息，並將影片存入對應課程資料夾。
 - LINE 影片上傳後僅 **24 小時**內可透過 API 下載，Bot 需即時處理
 - Google Apps Script 免費版單次執行上限 6 分鐘，一般影片大小不受影響
 - 學號暫存於 Script Properties，學生重新傳學號即可更新
+
+---
+
+## 工作交接（2026-06-07）
+
+### 已完成
+- `Code.gs`：主程式，處理 LINE Webhook、下載影片、存 Drive、寫試算表
+- `config.gs`：設定檔範本，三個設定值待填入
+- `README.md`：完整部署說明
+
+### 尚未完成（請繼續）
+
+1. **Google Apps Script 部署**
+   - 開啟 https://script.google.com
+   - 建立新專案「LineHomeWorkCollector」
+   - 建立 `Code.gs` 和 `config.gs`，內容從此 Repo 複製貼上
+   - 填入 `config.gs` 的三個設定值：
+     - `LINE_CHANNEL_ACCESS_TOKEN`：從 LINE Developers 後台取得
+     - `ROOT_FOLDER_ID`：Google Drive 作業收集資料夾 ID
+     - `SPREADSHEET_ID`：記錄試算表 ID
+
+2. **部署為網頁應用程式**
+   - 執行身分：使用者自己的 Google 帳號
+   - 存取權：所有人
+   - 複製 Webhook URL 貼到 LINE Developers 後台
+
+3. **取得各課程群組 ID 填入 COURSE_MAP**
+   - Bot 加入群組後群組內傳訊息
+   - 從 Apps Script 執行記錄取得 groupId
+   - 填入 `config.gs` 的 `COURSE_MAP`
+
+### 學號格式
+- `4100E102`（數字開頭）
+- `A130E113`（字母開頭）
+- 組別作業：多個學號以空格分隔
